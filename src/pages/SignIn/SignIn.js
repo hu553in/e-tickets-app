@@ -1,11 +1,15 @@
 import { Button, TextField } from '@material-ui/core';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { I18n } from 'react-redux-i18n';
 import { app } from '../../services/firebase';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, []);
   const onSignInButtonClick = useCallback(() => {
     app.auth().signInWithEmailAndPassword(email, password)
       // eslint-disable-next-line no-alert

@@ -2,7 +2,10 @@ import { ISSUE_METHODS } from '../../constants';
 import { firebase, firestore } from '../../services/firebase';
 import { getRandomInteger } from '../../services/math';
 
-export const types = { GENERATE_NEW_TICKET: 'GENERATE_NEW_TICKET' };
+export const types = {
+  GENERATE_NEW_TICKET: 'GENERATE_NEW_TICKET',
+  RESET_STATE: 'RESET_STATE',
+};
 
 const generateTicketNumber = (numbers) => {
   let number;
@@ -30,3 +33,7 @@ export const generateNewTicket = (numbers) => {
       .catch((e) => alert(e));
   };
 };
+
+export const resetState = () => (dispatch) => dispatch(
+  { type: types.RESET_STATE },
+);

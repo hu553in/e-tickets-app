@@ -18,7 +18,7 @@ import {
   Main,
   SignIn,
 } from './pages/index';
-import store from './store';
+import store from './redux/store';
 import './style.scss';
 
 const renderMainLayout = (ChildComponent) => (

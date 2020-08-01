@@ -6,7 +6,7 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import PropTypes from 'prop-types';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
@@ -38,6 +38,11 @@ const AddExistingTicket = (props) => {
     getTickets: getTicketsAlias,
     tickets,
   } = props;
+  useEffect(() => {
+    setNumber('');
+    handleIssuedAtDateTimeChange(new Date());
+    handleUpdatedAtDateTimeChange(new Date());
+  }, []);
   const numbers = useMemo(() => tickets.map((ticket) => ticket.number), [tickets]);
   const onAddButtonClick = () => {
     getTicketsAlias()

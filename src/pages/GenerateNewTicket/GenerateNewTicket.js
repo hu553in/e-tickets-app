@@ -1,13 +1,13 @@
 import { Button, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { ROUTES } from '../../constants';
 import { getTickets } from '../IssuedTickets/action';
-import { generateNewTicket } from './action';
+import { generateNewTicket, resetState } from './action';
 
 const GenerateNewTicket = (props) => {
   const {
@@ -15,7 +15,9 @@ const GenerateNewTicket = (props) => {
     tickets,
     generateNewTicket: generateNewTicketAlias,
     getTickets: getTicketsAlias,
+    resetState: resetStateAlias,
   } = props;
+  useEffect(() => { resetStateAlias(); }, []);
   const inputRef = useRef(null);
   const copyToClipboard = () => {
     inputRef.current.select();
@@ -84,12 +86,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   generateNewTicket: bindActionCreators(generateNewTicket, dispatch),
   getTickets: bindActionCreators(getTickets, dispatch),
+  resetState: bindActionCreators(resetState, dispatch),
 });
 
 GenerateNewTicket.propTypes = {
   number: PropTypes.string.isRequired,
   generateNewTicket: PropTypes.func.isRequired,
   getTickets: PropTypes.func.isRequired,
+  resetState: PropTypes.func.isRequired,
   tickets: PropTypes.arrayOf(PropTypes.shape({
     number: PropTypes.string.isRequired,
     issuedAt: PropTypes.instanceOf(Date).isRequired,

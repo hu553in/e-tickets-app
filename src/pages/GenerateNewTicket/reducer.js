@@ -9,6 +9,9 @@ export default (state = initialState.generateNewTicketReducer, action) => {
         number: action.number,
       };
     }
+    case types.RESET_STATE: {
+      return initialState.generateNewTicketReducer;
+    }
     default: {
       return state;
     }
