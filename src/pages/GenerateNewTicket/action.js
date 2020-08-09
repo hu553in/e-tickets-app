@@ -1,3 +1,4 @@
+import { setLoading } from '../../components/Loading/action';
 import { ISSUE_METHODS } from '../../constants';
 import { firebase, firestore } from '../../services/firebase';
 import { getRandomInteger } from '../../services/math';
@@ -18,22 +19,27 @@ const generateTicketNumber = (numbers) => {
 export const generateNewTicket = (numbers) => {
   const number = generateTicketNumber(numbers);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-  return (dispatch) => {
-    firestore.collection('tickets').doc(number).set({
-      issuedAt: timestamp,
-      updatedAt: timestamp,
-      issueMethod: ISSUE_METHODS.AUTOMATIC,
-      isAlreadyUsed: false,
-    })
-      .then(() => dispatch({
+  return async (dispatch) => {
+    setLoading(dispatch, true);
+    try {
+      await firestore.collection('tickets').doc(number).set({
+        issuedAt: timestamp,
+        updatedAt: timestamp,
+        issueMethod: ISSUE_METHODS.AUTOMATIC,
+        isAlreadyUsed: false,
+      });
+      dispatch({
         type: types.GENERATE_NEW_TICKET,
         number,
-      }))
+      });
+      return setLoading(dispatch, false);
+    } catch (e) {
       // eslint-disable-next-line no-alert
-      .catch((e) => alert(e));
+      return alert(e);
+    }
   };
 };
 
-export const resetState = () => (dispatch) => dispatch(
-  { type: types.RESET_STATE },
-);
+export const resetState = () => (dispatch) => dispatch({
+  type: types.RESET_STATE,
+});

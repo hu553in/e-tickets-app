@@ -28,8 +28,8 @@ const renderUnauthorizedLayout = (ChildComponent) => (
   <UnauthorizedLayout><ChildComponent /></UnauthorizedLayout>
 );
 ReactDOM.render(
-  <AuthProvider>
-    <Provider store={store}>
+  <Provider store={store}>
+    <AuthProvider>
       <BrowserRouter>
         <Switch>
           <Route path={ROUTES.SIGN_IN}>
@@ -55,7 +55,7 @@ ReactDOM.render(
           </Route>
         </Switch>
       </BrowserRouter>
-    </Provider>
-  </AuthProvider>,
+    </AuthProvider>
+  </Provider>,
   document.getElementById('root'),
 );

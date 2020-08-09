@@ -1,17 +1,24 @@
 import { Button, TextField } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
+import { bindActionCreators } from 'redux';
+import { setLoadingActionCreator } from '../../components/Loading/action';
 import { app } from '../../services/firebase';
 
-const SignIn = () => {
+const SignIn = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useEffect(() => {
     setEmail('');
     setPassword('');
   }, []);
+  const { setLoadingActionCreator: setLoadingActionCreatorAlias } = props;
   const onSignInButtonClick = useCallback(() => {
+    setLoadingActionCreatorAlias(true);
     app.auth().signInWithEmailAndPassword(email, password)
+      .then(() => setLoadingActionCreatorAlias(false))
       // eslint-disable-next-line no-alert
       .catch((e) => alert(e));
   }, [email, password]);
@@ -50,4 +57,12 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  setLoadingActionCreator: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setLoadingActionCreator: bindActionCreators(setLoadingActionCreator, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);

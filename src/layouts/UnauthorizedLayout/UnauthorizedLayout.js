@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext } from '../../components/index';
+import { AuthContext, Loading } from '../../components/index';
 import { ROUTES } from '../../constants';
 import './style.scss';
 
@@ -12,16 +12,17 @@ const UnauthorizedLayout = (props) => {
   return (
     isLoggedIn()
       ? <Redirect to={ROUTES.DEFAULT} />
-      : <div className="unauthorizedLayout">{children}</div>
+      : (
+        <div className="unauthorizedLayout">
+          {children}
+          <Loading />
+        </div>
+      )
   );
 };
 
 UnauthorizedLayout.propTypes = {
-  children: PropTypes.node,
-};
-
-UnauthorizedLayout.defaultProps = {
-  children: '',
+  children: PropTypes.node.isRequired,
 };
 
 export default UnauthorizedLayout;
