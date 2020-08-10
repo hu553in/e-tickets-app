@@ -45,13 +45,13 @@ export default {
         messages: {
           ticketIsDeletedSuccessfully: 'Ticket is deleted successfully!',
           setIsAlreadyUsedSuccess: {
-            true: 'Ticket is marked as already used successfully!',
-            false: 'Ticket is marked as not already used successfully!',
+            true: 'Ticket is marked as used successfully!',
+            false: 'Ticket is marked as not used successfully!',
           },
         },
         labels: {
           issueMethod: 'Issue method',
-          isAlreadyUsed: 'Is already used',
+          isAlreadyUsed: 'Is used',
         },
         issueMethods: {
           [ISSUE_METHODS.MANUAL]: 'manual',
@@ -135,13 +135,13 @@ export default {
         messages: {
           ticketIsDeletedSuccessfully: 'Билет удален успешно!',
           setIsAlreadyUsedSuccess: {
-            true: 'Билет успешно отмечен как уже использованный!',
-            false: 'Билет успешно отмечен как еще не использованный!',
+            true: 'Билет успешно отмечен как использованный!',
+            false: 'Билет успешно отмечен как не использованный!',
           },
         },
         labels: {
           issueMethod: 'Метод выпуска',
-          isAlreadyUsed: 'Уже использован',
+          isAlreadyUsed: 'Использован',
         },
         issueMethods: {
           [ISSUE_METHODS.MANUAL]: 'вручную',
