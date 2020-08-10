@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { bindActionCreators } from 'redux';
-import { setLoadingActionCreator } from '../../components/Loading/action';
+import { setLoading } from '../../components/Loading/action';
 import { app } from '../../services/firebase';
 
 const SignIn = (props) => {
@@ -14,11 +14,11 @@ const SignIn = (props) => {
     setEmail('');
     setPassword('');
   }, []);
-  const { setLoadingActionCreator: setLoadingActionCreatorAlias } = props;
+  const { setLoading: setLoadingAlias } = props;
   const onSignInButtonClick = useCallback(() => {
-    setLoadingActionCreatorAlias(true);
+    setLoadingAlias(true);
     app.auth().signInWithEmailAndPassword(email, password)
-      .then(() => setLoadingActionCreatorAlias(false))
+      .then(() => setLoadingAlias(false))
       // eslint-disable-next-line no-alert
       .catch((e) => alert(e));
   }, [email, password]);
@@ -58,11 +58,11 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
-  setLoadingActionCreator: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setLoadingActionCreator: bindActionCreators(setLoadingActionCreator, dispatch),
+  setLoading: bindActionCreators(setLoading, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);

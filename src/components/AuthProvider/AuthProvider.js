@@ -3,18 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { app } from '../../services/firebase';
-import { setLoadingActionCreator } from '../Loading/action';
+import { setLoading } from '../Loading/action';
 
 export const AuthContext = React.createContext();
 
 const AuthProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const { children, setLoadingActionCreator: setLoadingActionCreatorAlias } = props;
+  const { children, setLoading: setLoadingAlias } = props;
   useEffect(() => {
-    setLoadingActionCreatorAlias(true);
+    setLoadingAlias(true);
     app.auth().onAuthStateChanged((user) => {
       setCurrentUser(user);
-      setLoadingActionCreatorAlias(false);
+      setLoadingAlias(false);
     });
   }, []);
   return (
@@ -26,11 +26,11 @@ const AuthProvider = (props) => {
 
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  setLoadingActionCreator: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setLoadingActionCreator: bindActionCreators(setLoadingActionCreator, dispatch),
+  setLoading: bindActionCreators(setLoading, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(AuthProvider);

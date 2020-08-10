@@ -1,4 +1,4 @@
-import { setLoading } from '../../components/Loading/action';
+import { setLoadingInternal } from '../../components/Loading/action';
 import { ISSUE_METHODS } from '../../constants';
 import { firebase, firestore } from '../../services/firebase';
 import { getRandomInteger } from '../../services/math';
@@ -20,7 +20,7 @@ export const generateNewTicket = (numbers) => {
   const number = generateTicketNumber(numbers);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
   return async (dispatch) => {
-    setLoading(dispatch, true);
+    setLoadingInternal(dispatch, true);
     try {
       await firestore.collection('tickets').doc(number).set({
         issuedAt: timestamp,
@@ -32,7 +32,7 @@ export const generateNewTicket = (numbers) => {
         type: types.GENERATE_NEW_TICKET,
         number,
       });
-      return setLoading(dispatch, false);
+      return setLoadingInternal(dispatch, false);
     } catch (e) {
       // eslint-disable-next-line no-alert
       return alert(e);
