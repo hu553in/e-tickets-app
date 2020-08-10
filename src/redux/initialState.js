@@ -8,4 +8,9 @@ export default {
   loadingReducer: {
     isLoading: false,
   },
+  notificationReducer: {
+    isActive: false,
+    severity: 'info',
+    message: '',
+  },
 };

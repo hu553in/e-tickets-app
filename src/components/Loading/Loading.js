@@ -4,16 +4,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './style.scss';
 
-const Loading = (props) => {
-  const { isLoading } = props;
-  return isLoading
-    ? (
-      <div className="loading">
-        <CircularProgress />
-      </div>
-    )
-    : null;
-};
+const Loading = ({ isLoading }) => (
+  isLoading
+    ? (<div className="loading"><CircularProgress /></div>)
+    : null
+);
 
 Loading.propTypes = {
   isLoading: PropTypes.bool.isRequired,

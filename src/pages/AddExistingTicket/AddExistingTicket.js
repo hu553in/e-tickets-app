@@ -1,16 +1,17 @@
 import DateFnsUtils from '@date-io/date-fns';
-import { enUS, ru } from 'date-fns/locale';
 import { Button, TextField } from '@material-ui/core';
 import {
   DateTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import { enUS, ru } from 'date-fns/locale';
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import { showNotification } from '../../components/Notification/action';
 import { ROUTES } from '../../constants';
 import {
   isEmptyOrNumberString,
@@ -19,7 +20,12 @@ import {
 import { getTickets } from '../IssuedTickets/action';
 import { addExistingTicket } from './action';
 
-const AddExistingTicket = (props) => {
+const AddExistingTicket = ({
+  addExistingTicket: addExistingTicketAlias,
+  getTickets: getTicketsAlias,
+  showNotification: showNotificationAlias,
+  tickets,
+}) => {
   const localeMap = {
     ru_RU: ru,
     en_US: enUS,
@@ -33,11 +39,6 @@ const AddExistingTicket = (props) => {
     handleUpdatedAtDateTimeChange,
   ] = useState(new Date());
   const [number, setNumber] = useState('');
-  const {
-    addExistingTicket: addExistingTicketAlias,
-    getTickets: getTicketsAlias,
-    tickets,
-  } = props;
   useEffect(() => {
     setNumber('');
     handleIssuedAtDateTimeChange(new Date());
@@ -48,14 +49,20 @@ const AddExistingTicket = (props) => {
     getTicketsAlias()
       .then(() => {
         if (numbers.includes(number)) {
-          // eslint-disable-next-line no-alert
-          alert(I18n.t('pages.addExistingTicket.errors.numberAlreadyExists'));
+          showNotificationAlias(
+            'error',
+            I18n.t('pages.addExistingTicket.messages.numberAlreadyExists'),
+          );
         } else {
           addExistingTicketAlias(
             number,
             selectedIssuedAtDateTime,
             selectedUpdatedAtDateTime,
-          );
+          )
+            .then(() => showNotificationAlias(
+              'success',
+              I18n.t('pages.addExistingTicket.messages.ticketIsAddedSuccessfully'),
+            ));
         }
       });
   };
@@ -147,11 +154,13 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addExistingTicket: bindActionCreators(addExistingTicket, dispatch),
   getTickets: bindActionCreators(getTickets, dispatch),
+  showNotification: bindActionCreators(showNotification, dispatch),
 });
 
 AddExistingTicket.propTypes = {
   addExistingTicket: PropTypes.func.isRequired,
   getTickets: PropTypes.func.isRequired,
+  showNotification: PropTypes.func.isRequired,
   tickets: PropTypes.arrayOf(PropTypes.shape({
     number: PropTypes.string.isRequired,
     issuedAt: PropTypes.instanceOf(Date).isRequired,

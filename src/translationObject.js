@@ -14,8 +14,9 @@ export default {
     },
     pages: {
       addExistingTicket: {
-        errors: {
+        messages: {
           numberAlreadyExists: 'Number already exists!',
+          ticketIsAddedSuccessfully: 'Ticket is added successfully!',
         },
         buttons: {
           add: 'Add',
@@ -25,6 +26,9 @@ export default {
         },
       },
       generateNewTicket: {
+        messages: {
+          ticketIsGeneratedSuccessfully: 'Ticket is generated successfully!',
+        },
         buttons: {
           generate: 'Generate',
           generateMore: 'Generate more',
@@ -38,6 +42,13 @@ export default {
         },
       },
       issuedTickets: {
+        messages: {
+          ticketIsDeletedSuccessfully: 'Ticket is deleted successfully!',
+          setIsAlreadyUsedSuccess: {
+            true: 'Ticket is marked as already used successfully!',
+            false: 'Ticket is marked as not already used successfully!',
+          },
+        },
         labels: {
           issueMethod: 'Issue method',
           isAlreadyUsed: 'Is already used',
@@ -93,8 +104,9 @@ export default {
     },
     pages: {
       addExistingTicket: {
-        errors: {
+        messages: {
           numberAlreadyExists: 'Номер уже существует!',
+          ticketIsAddedSuccessfully: 'Билет добавлен успешно!',
         },
         buttons: {
           add: 'Добавить',
@@ -104,6 +116,9 @@ export default {
         },
       },
       generateNewTicket: {
+        messages: {
+          ticketIsGeneratedSuccessfully: 'Билет сгенерирован успешно!',
+        },
         buttons: {
           generate: 'Сгенерировать',
           generateMore: 'Сгенерировать еще',
@@ -117,6 +132,13 @@ export default {
         },
       },
       issuedTickets: {
+        messages: {
+          ticketIsDeletedSuccessfully: 'Билет удален успешно!',
+          setIsAlreadyUsedSuccess: {
+            true: 'Билет успешно отмечен как уже использованный!',
+            false: 'Билет успешно отмечен как еще не использованный!',
+          },
+        },
         labels: {
           issueMethod: 'Метод выпуска',
           isAlreadyUsed: 'Уже использован',

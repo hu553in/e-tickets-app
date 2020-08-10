@@ -5,22 +5,27 @@ import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { bindActionCreators } from 'redux';
 import { setLoading } from '../../components/Loading/action';
+import { showNotification } from '../../components/Notification/action';
 import { app } from '../../services/firebase';
 
-const SignIn = (props) => {
+const SignIn = ({
+  setLoading: setLoadingAlias,
+  showNotification: showNotificationAlias,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useEffect(() => {
     setEmail('');
     setPassword('');
   }, []);
-  const { setLoading: setLoadingAlias } = props;
   const onSignInButtonClick = useCallback(() => {
     setLoadingAlias(true);
     app.auth().signInWithEmailAndPassword(email, password)
       .then(() => setLoadingAlias(false))
-      // eslint-disable-next-line no-alert
-      .catch((e) => alert(e));
+      .catch((e) => {
+        setLoadingAlias(false);
+        showNotificationAlias('error', e.message);
+      });
   }, [email, password]);
   return (
     <>
@@ -59,10 +64,12 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   setLoading: PropTypes.func.isRequired,
+  showNotification: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setLoading: bindActionCreators(setLoading, dispatch),
+  showNotification: bindActionCreators(showNotification, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);

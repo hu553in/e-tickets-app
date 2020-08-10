@@ -5,18 +5,19 @@ import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import { showNotification } from '../../components/Notification/action';
 import { ROUTES } from '../../constants';
 import { getTickets } from '../IssuedTickets/action';
 import { generateNewTicket, resetState } from './action';
 
-const GenerateNewTicket = (props) => {
-  const {
-    number,
-    tickets,
-    generateNewTicket: generateNewTicketAlias,
-    getTickets: getTicketsAlias,
-    resetState: resetStateAlias,
-  } = props;
+const GenerateNewTicket = ({
+  number,
+  tickets,
+  generateNewTicket: generateNewTicketAlias,
+  getTickets: getTicketsAlias,
+  resetState: resetStateAlias,
+  showNotification: showNotificationAlias,
+}) => {
   useEffect(() => { resetStateAlias(); }, []);
   const inputRef = useRef(null);
   const copyToClipboard = () => {
@@ -26,7 +27,11 @@ const GenerateNewTicket = (props) => {
   const numbers = useMemo(() => tickets.map((ticket) => ticket.number), [tickets]);
   const onGenerateButtonClick = () => {
     getTicketsAlias()
-      .then(() => generateNewTicketAlias(numbers));
+      .then(() => generateNewTicketAlias(numbers))
+      .then(() => showNotificationAlias(
+        'success',
+        I18n.t('pages.generateNewTicket.messages.ticketIsGeneratedSuccessfully'),
+      ));
   };
   return (
     <>
@@ -87,6 +92,7 @@ const mapDispatchToProps = (dispatch) => ({
   generateNewTicket: bindActionCreators(generateNewTicket, dispatch),
   getTickets: bindActionCreators(getTickets, dispatch),
   resetState: bindActionCreators(resetState, dispatch),
+  showNotification: bindActionCreators(showNotification, dispatch),
 });
 
 GenerateNewTicket.propTypes = {
@@ -94,6 +100,7 @@ GenerateNewTicket.propTypes = {
   generateNewTicket: PropTypes.func.isRequired,
   getTickets: PropTypes.func.isRequired,
   resetState: PropTypes.func.isRequired,
+  showNotification: PropTypes.func.isRequired,
   tickets: PropTypes.arrayOf(PropTypes.shape({
     number: PropTypes.string.isRequired,
     issuedAt: PropTypes.instanceOf(Date).isRequired,

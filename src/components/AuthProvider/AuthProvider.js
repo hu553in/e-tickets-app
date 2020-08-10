@@ -7,9 +7,8 @@ import { setLoading } from '../Loading/action';
 
 export const AuthContext = React.createContext();
 
-const AuthProvider = (props) => {
+const AuthProvider = ({ children, setLoading: setLoadingAlias }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const { children, setLoading: setLoadingAlias } = props;
   useEffect(() => {
     setLoadingAlias(true);
     app.auth().onAuthStateChanged((user) => {

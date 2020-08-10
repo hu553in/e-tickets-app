@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext, Loading } from '../../components/index';
+import { AuthContext, Loading, Notification } from '../../components/index';
 import { ROUTES } from '../../constants';
 import './style.scss';
 
-const UnauthorizedLayout = (props) => {
-  const { children } = props;
+const UnauthorizedLayout = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const isLoggedIn = () => !!currentUser;
   return (
@@ -16,6 +15,7 @@ const UnauthorizedLayout = (props) => {
         <div className="unauthorizedLayout">
           {children}
           <Loading />
+          <Notification />
         </div>
       )
   );

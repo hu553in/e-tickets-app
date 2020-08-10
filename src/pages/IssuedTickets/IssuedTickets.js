@@ -11,14 +11,15 @@ import { bindActionCreators } from 'redux';
 import { ROUTES } from '../../constants';
 import { deleteTicket, getTickets, setIsAlreadyUsed } from './action';
 import './style.scss';
+import { showNotification } from '../../components/Notification/action';
 
-const IssuedTickets = (props) => {
-  const {
-    getTickets: getTicketsAlias,
-    setIsAlreadyUsed: setIsAlreadyUsedAlias,
-    deleteTicket: deleteTicketAlias,
-    tickets,
-  } = props;
+const IssuedTickets = ({
+  getTickets: getTicketsAlias,
+  setIsAlreadyUsed: setIsAlreadyUsedAlias,
+  deleteTicket: deleteTicketAlias,
+  showNotification: showNotificationAlias,
+  tickets,
+}) => {
   useEffect(() => { getTicketsAlias(); }, []);
   const tableData = useMemo(() => tickets.map((ticket) => ({
     ...ticket,
@@ -36,6 +37,10 @@ const IssuedTickets = (props) => {
       <IconButton
         onClick={() => {
           deleteTicketAlias(rowData.number)
+            .then(() => showNotificationAlias(
+              'success',
+              I18n.t('pages.issuedTickets.messages.ticketIsDeletedSuccessfully'),
+            ))
             .then(() => getTicketsAlias());
         }}
       >
@@ -83,6 +88,12 @@ const IssuedTickets = (props) => {
           id={rowData.number}
           onChange={() => {
             setIsAlreadyUsedAlias(rowData.number, !rowData.isAlreadyUsed)
+              .then(() => showNotificationAlias(
+                'success',
+                I18n.t(`pages.issuedTickets.messages.setIsAlreadyUsedSuccess.${
+                  !rowData.isAlreadyUsed
+                }`),
+              ))
               .then(() => getTicketsAlias());
           }}
         />
@@ -122,12 +133,14 @@ const mapDispatchToProps = (dispatch) => ({
   getTickets: bindActionCreators(getTickets, dispatch),
   setIsAlreadyUsed: bindActionCreators(setIsAlreadyUsed, dispatch),
   deleteTicket: bindActionCreators(deleteTicket, dispatch),
+  showNotification: bindActionCreators(showNotification, dispatch),
 });
 
 IssuedTickets.propTypes = {
   getTickets: PropTypes.func.isRequired,
   setIsAlreadyUsed: PropTypes.func.isRequired,
   deleteTicket: PropTypes.func.isRequired,
+  showNotification: PropTypes.func.isRequired,
   tickets: PropTypes.arrayOf(PropTypes.shape({
     number: PropTypes.string.isRequired,
     issuedAt: PropTypes.instanceOf(Date).isRequired,

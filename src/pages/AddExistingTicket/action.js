@@ -1,4 +1,5 @@
 import { setLoadingInternal } from '../../components/Loading/action';
+import { showNotificationInternal } from '../../components/Notification/action';
 import { ISSUE_METHODS } from '../../constants';
 import { firebase, firestore } from '../../services/firebase';
 
@@ -18,8 +19,7 @@ export const addExistingTicket = (number, issuedAt, updatedAt) => {
       });
       return setLoadingInternal(dispatch, false);
     } catch (e) {
-      // eslint-disable-next-line no-alert
-      return alert(e);
+      return showNotificationInternal(dispatch, 'error', e.message);
     }
   };
 };

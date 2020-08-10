@@ -1,4 +1,5 @@
 import { setLoadingInternal } from '../../components/Loading/action';
+import { showNotificationInternal } from '../../components/Notification/action';
 import { firebase, firestore } from '../../services/firebase';
 
 export const types = { GET_TICKETS: 'GET_TICKETS' };
@@ -23,8 +24,7 @@ export const getTickets = () => async (dispatch) => {
     });
     return setLoadingInternal(dispatch, false);
   } catch (e) {
-    // eslint-disable-next-line no-alert
-    return alert(e);
+    return showNotificationInternal(dispatch, 'error', e.message);
   }
 };
 
@@ -39,8 +39,7 @@ export const setIsAlreadyUsed = (number, isAlreadyUsed) => {
       });
       return setLoadingInternal(dispatch, false);
     } catch (e) {
-      // eslint-disable-next-line no-alert
-      return alert(e);
+      return showNotificationInternal(dispatch, 'error', e.message);
     }
   };
 };
@@ -51,7 +50,6 @@ export const deleteTicket = (number) => async (dispatch) => {
     await firestore.collection('tickets').doc(number).delete();
     return setLoadingInternal(dispatch, false);
   } catch (e) {
-    // eslint-disable-next-line no-alert
-    return alert(e);
+    return showNotificationInternal(dispatch, 'error', e.message);
   }
 };

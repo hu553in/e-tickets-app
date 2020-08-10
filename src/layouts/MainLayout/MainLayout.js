@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext, Loading } from '../../components/index';
+import { AuthContext, Loading, Notification } from '../../components/index';
 import { ROUTES } from '../../constants';
 import './style.scss';
 
-const MainLayout = (props) => {
-  const { children } = props;
+const MainLayout = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const isLoggedIn = () => !!currentUser;
   return (
@@ -15,6 +14,7 @@ const MainLayout = (props) => {
         <div className="mainLayout">
           {children}
           <Loading />
+          <Notification />
         </div>
       )
       : <Redirect to={ROUTES.SIGN_IN} />
