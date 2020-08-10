@@ -136,7 +136,7 @@ export default {
           ticketIsDeletedSuccessfully: 'Билет удален успешно!',
           setIsAlreadyUsedSuccess: {
             true: 'Билет успешно отмечен как использованный!',
-            false: 'Билет успешно отмечен как не использованный!',
+            false: 'Билет успешно отмечен как неиспользованный!',
           },
         },
         labels: {
