@@ -12,7 +12,7 @@ import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { showNotification } from '../../components/Notification/action';
-import { ROUTES } from '../../constants';
+import { NOTIFICATION_SEVERITIES, ROUTES } from '../../constants';
 import {
   isEmptyOrNumberString,
   isSixDigitNumberString,
@@ -50,7 +50,7 @@ const AddExistingTicket = ({
       .then(() => {
         if (numbers.includes(number)) {
           showNotificationAlias(
-            'error',
+            NOTIFICATION_SEVERITIES.ERROR,
             I18n.t('pages.addExistingTicket.messages.numberAlreadyExists'),
           );
         } else {
@@ -60,7 +60,7 @@ const AddExistingTicket = ({
             selectedUpdatedAtDateTime,
           )
             .then(() => showNotificationAlias(
-              'success',
+              NOTIFICATION_SEVERITIES.SUCCESS,
               I18n.t('pages.addExistingTicket.messages.ticketIsAddedSuccessfully'),
             ));
         }

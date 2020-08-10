@@ -11,3 +11,10 @@ export const ISSUE_METHODS = {
   MANUAL: 'MANUAL',
   AUTOMATIC: 'AUTOMATIC',
 };
+
+export const NOTIFICATION_SEVERITIES = {
+  ERROR: 'error',
+  INFO: 'info',
+  WARNING: 'warning',
+  SUCCESS: 'success',
+};

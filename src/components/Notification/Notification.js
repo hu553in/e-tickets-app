@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NOTIFICATION_SEVERITIES } from '../../constants';
 import { hideNotification } from './action';
 
 const Alert = ({ onClose, severity, children }) => (
@@ -40,12 +41,7 @@ Notification.propTypes = {
   hideNotification: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
-  severity: PropTypes.oneOf([
-    'error',
-    'info',
-    'warning',
-    'success',
-  ]).isRequired,
+  severity: PropTypes.oneOf(Object.values(NOTIFICATION_SEVERITIES)).isRequired,
 };
 
 const mapStateToProps = (state) => ({

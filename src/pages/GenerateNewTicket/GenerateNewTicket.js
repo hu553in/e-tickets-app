@@ -6,7 +6,7 @@ import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { showNotification } from '../../components/Notification/action';
-import { ROUTES } from '../../constants';
+import { ROUTES, NOTIFICATION_SEVERITIES } from '../../constants';
 import { getTickets } from '../IssuedTickets/action';
 import { generateNewTicket, resetState } from './action';
 
@@ -29,7 +29,7 @@ const GenerateNewTicket = ({
     getTicketsAlias()
       .then(() => generateNewTicketAlias(numbers))
       .then(() => showNotificationAlias(
-        'success',
+        NOTIFICATION_SEVERITIES.SUCCESS,
         I18n.t('pages.generateNewTicket.messages.ticketIsGeneratedSuccessfully'),
       ));
   };

@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 import { I18n } from 'react-redux-i18n';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { ROUTES } from '../../constants';
+import { showNotification } from '../../components/Notification/action';
+import { ROUTES, NOTIFICATION_SEVERITIES } from '../../constants';
 import { deleteTicket, getTickets, setIsAlreadyUsed } from './action';
 import './style.scss';
-import { showNotification } from '../../components/Notification/action';
 
 const IssuedTickets = ({
   getTickets: getTicketsAlias,
@@ -38,7 +38,7 @@ const IssuedTickets = ({
         onClick={() => {
           deleteTicketAlias(rowData.number)
             .then(() => showNotificationAlias(
-              'success',
+              NOTIFICATION_SEVERITIES.SUCCESS,
               I18n.t('pages.issuedTickets.messages.ticketIsDeletedSuccessfully'),
             ))
             .then(() => getTicketsAlias());
@@ -89,7 +89,7 @@ const IssuedTickets = ({
           onChange={() => {
             setIsAlreadyUsedAlias(rowData.number, !rowData.isAlreadyUsed)
               .then(() => showNotificationAlias(
-                'success',
+                NOTIFICATION_SEVERITIES.SUCCESS,
                 I18n.t(`pages.issuedTickets.messages.setIsAlreadyUsedSuccess.${
                   !rowData.isAlreadyUsed
                 }`),

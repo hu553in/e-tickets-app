@@ -6,6 +6,7 @@ import { I18n } from 'react-redux-i18n';
 import { bindActionCreators } from 'redux';
 import { setLoading } from '../../components/Loading/action';
 import { showNotification } from '../../components/Notification/action';
+import { NOTIFICATION_SEVERITIES } from '../../constants';
 import { app } from '../../services/firebase';
 
 const SignIn = ({
@@ -24,7 +25,7 @@ const SignIn = ({
       .then(() => setLoadingAlias(false))
       .catch((e) => {
         setLoadingAlias(false);
-        showNotificationAlias('error', e.message);
+        showNotificationAlias(NOTIFICATION_SEVERITIES.ERROR, e.message);
       });
   }, [email, password]);
   return (

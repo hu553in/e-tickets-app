@@ -1,6 +1,6 @@
 import { setLoadingInternal } from '../../components/Loading/action';
 import { showNotificationInternal } from '../../components/Notification/action';
-import { ISSUE_METHODS } from '../../constants';
+import { ISSUE_METHODS, NOTIFICATION_SEVERITIES } from '../../constants';
 import { firebase, firestore } from '../../services/firebase';
 
 export const types = { ADD_EXISTING_TICKET: 'ADD_EXISTING_TICKET' };
@@ -19,7 +19,7 @@ export const addExistingTicket = (number, issuedAt, updatedAt) => {
       });
       return setLoadingInternal(dispatch, false);
     } catch (e) {
-      return showNotificationInternal(dispatch, 'error', e.message);
+      return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
     }
   };
 };

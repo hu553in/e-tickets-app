@@ -1,5 +1,6 @@
 import { setLoadingInternal } from '../../components/Loading/action';
 import { showNotificationInternal } from '../../components/Notification/action';
+import { NOTIFICATION_SEVERITIES } from '../../constants';
 import { firebase, firestore } from '../../services/firebase';
 
 export const types = { GET_TICKETS: 'GET_TICKETS' };
@@ -24,7 +25,7 @@ export const getTickets = () => async (dispatch) => {
     });
     return setLoadingInternal(dispatch, false);
   } catch (e) {
-    return showNotificationInternal(dispatch, 'error', e.message);
+    return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
   }
 };
 
@@ -39,7 +40,7 @@ export const setIsAlreadyUsed = (number, isAlreadyUsed) => {
       });
       return setLoadingInternal(dispatch, false);
     } catch (e) {
-      return showNotificationInternal(dispatch, 'error', e.message);
+      return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
     }
   };
 };
@@ -50,6 +51,6 @@ export const deleteTicket = (number) => async (dispatch) => {
     await firestore.collection('tickets').doc(number).delete();
     return setLoadingInternal(dispatch, false);
   } catch (e) {
-    return showNotificationInternal(dispatch, 'error', e.message);
+    return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
   }
 };
