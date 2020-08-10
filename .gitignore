@@ -39,3 +39,7 @@
 # Firebase
 
 **/.firebase
+
+# .env
+
+**/.env
