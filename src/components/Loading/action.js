@@ -1,9 +1,9 @@
 export const types = { SET_LOADING: 'SET_LOADING' };
 
-export const setLoadingInternal = (dispatch, isLoading) => dispatch({
+export const setLoadingInternal = (dispatch, isLoading) => Promise.resolve(dispatch({
   type: types.SET_LOADING,
   isLoading,
-});
+}));
 
 export const setLoading = (isLoading) => (dispatch) => dispatch({
   type: types.SET_LOADING,

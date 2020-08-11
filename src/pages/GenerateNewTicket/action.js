@@ -20,24 +20,19 @@ const generateTicketNumber = (numbers) => {
 export const generateNewTicket = (numbers) => {
   const number = generateTicketNumber(numbers);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-  return async (dispatch) => {
-    setLoadingInternal(dispatch, true);
-    try {
-      await firestore.collection('tickets').doc(number).set({
-        issuedAt: timestamp,
-        updatedAt: timestamp,
-        issueMethod: ISSUE_METHODS.AUTOMATIC,
-        isAlreadyUsed: false,
-      });
-      dispatch({
-        type: types.GENERATE_NEW_TICKET,
-        number,
-      });
-      return setLoadingInternal(dispatch, false);
-    } catch (e) {
-      return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
-    }
-  };
+  return (dispatch) => setLoadingInternal(dispatch, true)
+    .then(() => firestore.collection('tickets').doc(number).set({
+      issuedAt: timestamp,
+      updatedAt: timestamp,
+      issueMethod: ISSUE_METHODS.AUTOMATIC,
+      isAlreadyUsed: false,
+    }))
+    .then(() => dispatch({
+      type: types.GENERATE_NEW_TICKET,
+      number,
+    }))
+    .then(() => setLoadingInternal(dispatch, false))
+    .catch((e) => showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message));
 };
 
 export const resetState = () => (dispatch) => dispatch({

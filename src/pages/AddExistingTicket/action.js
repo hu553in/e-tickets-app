@@ -5,21 +5,14 @@ import { firebase, firestore } from '../../services/firebase';
 
 export const types = { ADD_EXISTING_TICKET: 'ADD_EXISTING_TICKET' };
 
-export const addExistingTicket = (number, issuedAt, updatedAt) => {
-  const issuedAtTimestamp = firebase.firestore.Timestamp.fromDate(issuedAt);
-  const updatedAtTimestamp = firebase.firestore.Timestamp.fromDate(updatedAt);
-  return async (dispatch) => {
-    setLoadingInternal(dispatch, true);
-    try {
-      await firestore.collection('tickets').doc(number).set({
-        issuedAt: issuedAtTimestamp,
-        updatedAt: updatedAtTimestamp,
-        issueMethod: ISSUE_METHODS.MANUAL,
-        isAlreadyUsed: false,
-      });
-      return setLoadingInternal(dispatch, false);
-    } catch (e) {
-      return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
-    }
-  };
-};
+export const addExistingTicket = (number, issuedAt, updatedAt) => (
+  (dispatch) => setLoadingInternal(dispatch, true)
+    .then(() => firestore.collection('tickets').doc(number).set({
+      issuedAt: firebase.firestore.Timestamp.fromDate(issuedAt),
+      updatedAt: firebase.firestore.Timestamp.fromDate(updatedAt),
+      issueMethod: ISSUE_METHODS.MANUAL,
+      isAlreadyUsed: false,
+    }))
+    .then(() => setLoadingInternal(dispatch, false))
+    .catch((e) => showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message))
+);

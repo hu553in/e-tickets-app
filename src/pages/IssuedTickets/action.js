@@ -5,12 +5,11 @@ import { firebase, firestore } from '../../services/firebase';
 
 export const types = { GET_TICKETS: 'GET_TICKETS' };
 
-export const getTickets = () => async (dispatch) => {
-  setLoadingInternal(dispatch, true);
-  try {
-    const querySnapshot = await firestore.collection('tickets').get();
-    const { docs } = querySnapshot;
-    dispatch({
+export const getTickets = () => (
+  (dispatch) => setLoadingInternal(dispatch, true)
+    .then(() => firestore.collection('tickets').get())
+    .then((querySnapshot) => querySnapshot.docs)
+    .then((docs) => dispatch({
       type: types.GET_TICKETS,
       tickets: docs.map((doc) => {
         const data = doc.data();
@@ -22,35 +21,24 @@ export const getTickets = () => async (dispatch) => {
           isAlreadyUsed: data.isAlreadyUsed,
         };
       }),
-    });
-    return setLoadingInternal(dispatch, false);
-  } catch (e) {
-    return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
-  }
-};
+    }))
+    .then(() => setLoadingInternal(dispatch, false))
+    .catch((e) => showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message))
+);
 
-export const setIsAlreadyUsed = (number, isAlreadyUsed) => {
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-  return async (dispatch) => {
-    setLoadingInternal(dispatch, true);
-    try {
-      await firestore.collection('tickets').doc(number).update({
-        updatedAt: timestamp,
-        isAlreadyUsed,
-      });
-      return setLoadingInternal(dispatch, false);
-    } catch (e) {
-      return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
-    }
-  };
-};
+export const setIsAlreadyUsed = (number, isAlreadyUsed) => (
+  (dispatch) => setLoadingInternal(dispatch, true)
+    .then(() => firestore.collection('tickets').doc(number).update({
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      isAlreadyUsed,
+    }))
+    .then(() => setLoadingInternal(dispatch, false))
+    .catch((e) => showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message))
+);
 
-export const deleteTicket = (number) => async (dispatch) => {
-  setLoadingInternal(dispatch, true);
-  try {
-    await firestore.collection('tickets').doc(number).delete();
-    return setLoadingInternal(dispatch, false);
-  } catch (e) {
-    return showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message);
-  }
-};
+export const deleteTicket = (number) => (
+  (dispatch) => setLoadingInternal(dispatch, true)
+    .then(() => firestore.collection('tickets').doc(number).delete())
+    .then(() => setLoadingInternal(dispatch, false))
+    .catch((e) => showNotificationInternal(dispatch, NOTIFICATION_SEVERITIES.ERROR, e.message))
+);
