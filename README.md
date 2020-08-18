@@ -5,10 +5,10 @@
 This app is a tool for working with simple e-tickets (six-digit numbers).
 
 User can:
-* issue new ticket (add existing ticket or generate new one)
-* see info about ticket
-* mark ticket as used
-* delete ticket.
+* issue a new ticket (add an existing ticket or generate a new one)
+* see info about the ticket
+* mark the ticket as used
+* delete the ticket
 
 ## Tech stack
 
