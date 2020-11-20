@@ -2,9 +2,9 @@
 
 ## Description
 
-This app is a tool for working with simple e-tickets (six-digit numbers).
+This project is a web app for working with simple e-tickets (six-digit numbers).
 
-User can:
+An app has such features:
 * issue a new ticket (add an existing ticket or generate a new one)
 * find the ticket by it's number
 * see an info about the ticket
@@ -13,7 +13,10 @@ User can:
 
 ## Tech stack
 
-* [React.js](https://reactjs.org/)
-* [Redux.js](https://redux.js.org/)
-* [Firebase](https://firebase.google.com/)
-* some additional npm packages (see `./package-info.json`)
+* React
+* Redux
+* Firebase
+
+## How to run
+
+_TODO_
