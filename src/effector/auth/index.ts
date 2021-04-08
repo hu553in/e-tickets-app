@@ -1,17 +1,8 @@
 import { combine, createDomain } from 'effector';
 import authApi from '../../api/auth/auth';
-import { NotificationSeverity } from '../../constants';
-import { showNotification } from '../notification';
+import showNotificationAndRethrow from '../../utils/showNotificationAndRethrow';
 
 const authDomain = createDomain();
-
-const showNotificationAndRethrow = (payload: { error: Error }) => {
-  showNotification({
-    severity: NotificationSeverity.ERROR,
-    message: payload.error.message,
-  });
-  throw payload.error;
-};
 
 export const signInFx = authDomain.createEffect(
   ({ email, password }: { email: string; password: string }) =>

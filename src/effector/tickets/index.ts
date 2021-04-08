@@ -1,8 +1,7 @@
 import { combine, createDomain } from 'effector';
 import ticketsApi from '../../api/tickets/tickets';
 import { Ticket } from '../../api/tickets/tickets.schema';
-import { NotificationSeverity } from '../../constants';
-import { showNotification } from '../notification';
+import showNotificationAndRethrow from '../../utils/showNotificationAndRethrow';
 
 const ticketsDomain = createDomain();
 
@@ -13,14 +12,6 @@ export const $generatedTicketNumber = ticketsDomain.createStore<string | null>(
 export const $chosenTicketNumber = ticketsDomain.createStore<string | null>(
   null
 );
-
-const showNotificationAndRethrow = (payload: { error: Error }) => {
-  showNotification({
-    severity: NotificationSeverity.ERROR,
-    message: payload.error.message,
-  });
-  throw payload.error;
-};
 
 export const getTicketsFx = ticketsDomain.createEffect(() =>
   ticketsApi.getTickets()
