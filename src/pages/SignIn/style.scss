@@ -1,0 +1,11 @@
+.signIn__input {
+  width: 200px;
+
+  &:not(:first-child) {
+    margin-top: 15px;
+  }
+}
+
+.signIn__button {
+  margin-top: 15px !important;
+}

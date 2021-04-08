@@ -1,28 +1,16 @@
 {
-  "parser": "babel-eslint",
-  "env": {
-    "es6": true,
-    "browser": true
-  },
-  "extends": "airbnb",
-  "rules": {
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
-      }
-    ]
-  },
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
   "plugins": [
-    "import",
-    "json-format",
-    "jsx-a11y",
-    "promise",
-    "react",
-    "react-hooks",
-    "react-redux"
-  ]
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
+  }
 }

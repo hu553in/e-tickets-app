@@ -1,0 +1,7 @@
+.issueTicket__button {
+  width: 200px;
+
+  &:not(:first-child) {
+    margin-top: 15px !important;
+  }
+}
