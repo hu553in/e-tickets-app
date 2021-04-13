@@ -32,9 +32,9 @@ structure in `./src/api/tickets/tickets.ts`)
 
 1. Install `Node.js` (≥ 15.13.0)
 2. Install `yarn` npm package globally
-3. Run `cp .env.template .env && cp .firebaserc.template .firebaserc`
-4. Fill in `.env` file with correct Firebase credentials
-5. Fill in `projects.default` field of `.firebaserc` file
+3. Run `cp ./.env.template ./.env && cp ./.firebaserc.template ./.firebaserc`
+4. Fill in `./.env` file with correct Firebase credentials
+5. Fill in `projects.default` field of `./.firebaserc` file
 with correct Firebase project name
 6. Run `yarn` to install dependencies
 7. Run `yarn start` to run the app in development mode
