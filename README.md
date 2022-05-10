@@ -11,8 +11,7 @@ An app has such features:
 * see an info about the ticket
 * mark the ticket as used
 * delete the ticket
-* get the sequence of unique tickets chosen randomly from
-the list of issued tickets (as for the lottery)
+* get the sequence of unique tickets chosen randomly from the list of issued tickets (as for the lottery)
 
 ## Tech stack
 
@@ -23,10 +22,8 @@ the list of issued tickets (as for the lottery)
 ## Requirements
 
 You need the Firebase project with such features enabled:
-* Email/Password authentication method (with some pre-created
-users - there's no sign up feature at the moment)
-* Firestore (with `tickets` collection - see the document
-structure in `./src/api/tickets/tickets.ts`)
+* Email/Password authentication method (with some pre-created users - there's no sign up feature at the moment)
+* Firestore (with `tickets` collection - see the document structure in `./src/api/tickets/tickets.ts`)
 
 ## How to run
 
