@@ -30,7 +30,7 @@ structure in `./src/api/tickets/tickets.ts`)
 
 ## How to run
 
-1. Install `Node.js` (≥ 15.13.0)
+1. Install Node.js (≥ 15.13.0)
 2. Install `yarn` npm package globally
 3. Run `cp ./.env.template ./.env && cp ./.firebaserc.template ./.firebaserc`
 4. Fill in `./.env` file with correct Firebase credentials
