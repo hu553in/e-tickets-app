@@ -4,7 +4,7 @@
 
 This project is a web app for working with simple e-tickets (six-digit numbers).
 
-An app has such features:
+The app has such features:
 
 * authenticate by email and password
 * issue a new ticket (add an existing ticket or generate a new one)
@@ -35,7 +35,7 @@ You need the Firebase project with such features enabled:
 4. Fill in `./.env` file with correct Firebase credentials
 5. Fill in `projects.default` field of `./.firebaserc` file with correct Firebase project name
 6. Run `yarn` to install dependencies
-7. Run `yarn start` to run the app in development mode
+7. Run `yarn start` to run the app in the development mode
 
 ## How to deploy the app to Firebase
 
