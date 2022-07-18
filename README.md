@@ -8,7 +8,7 @@ The app has such features:
 
 * authenticate by email and password
 * issue a new ticket (add an existing ticket or generate a new one)
-* find the ticket by it's number
+* find the ticket by its number
 * see an info about the ticket
 * mark the ticket as used
 * delete the ticket
