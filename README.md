@@ -20,6 +20,12 @@ The app has such features:
 * effector
 * Firebase
 
+## Roadmap
+
+- [ ] replace callback chains with async/await where it's possible and convenient
+- [ ] implement a data separation between users
+- [ ] implement a sign up functionality
+
 ## Requirements
 
 You need the Firebase project with such features enabled:
